@@ -1,11 +1,33 @@
-@startuml UseCaseDiagram
-title Diagramme de cas d'utilisation 1
+@startuml UseCaseDiagramv1
+title Diagramme de cas d'utilisation WeskonManj
 scale 2
 left to right direction
-actor utilisateur
+actor utilisateur as u
+
+
 
 rectangle WeskonManj {
-    utilisateur -- (Choisir un restaurant)
+    package "Gestion du compte" {
+        u -- (Créer un compte)
+        u -- (Se connecter)
+        u -- (Changer de mot de passe)
+        u -- (Supprimer le compte)
+        (Se connecter) .> (Supprimer le compte) : include
+        (Se connecter) .> (Changer de mot de passe) : include
+    }
+    u -- (Créer un groupe)
+    u -- (Créer un évènement)
+    u -- (Accéder à ses contacts)
+    u -- (Ajouter des individus au groupe)
+    u -- (Retirer des individus du groupe)
+    u -- (Déplacer la carte)
+    u -- (Voir des informations sur un restaurant)
+    u -- (Choisir un restaurant n°1)
+    u -- (Choisir un restaurant n°2)
+    u -- (Choisir un restaurant n°3)
+    u -- (Choisir un restaurant à bannir)
+    u -- (Supprimer un choix)
+    u -- (Valider son classement)
 }
 
 @enduml
