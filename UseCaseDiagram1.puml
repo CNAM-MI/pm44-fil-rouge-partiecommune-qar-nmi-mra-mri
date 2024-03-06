@@ -1,0 +1,11 @@
+@startuml UseCaseDiagram
+title Diagramme de cas d'utilisation 1
+scale 2
+left to right direction
+actor utilisateur
+
+rectangle WeskonManj {
+    utilisateur -- (Choisir un restaurant)
+}
+
+@enduml

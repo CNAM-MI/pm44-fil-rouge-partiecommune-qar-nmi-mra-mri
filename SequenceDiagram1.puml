@@ -1,0 +1,8 @@
+@startuml SequenceDiagram1
+title Diagramme de séquence 1
+actor utilisateur
+utilisateur -> application : Choisir un truc
+application -> serveur : Traiter le truc
+serveur -> application : Répondre au truc
+application -> utilisateur : Afficher le truc
+@enduml
