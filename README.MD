@@ -2,6 +2,26 @@
 ## Notre problématique 
 Comment faciliter la décision du lieu de restauration d'un groupe de personnes ?
 
+# Table des matières
+
+1. [Informations liées à la théorie du choix social](#1-informations-liées-à-la-théorie-du-choix-social)  
+    1.1. [L’expression des préférences](#11-lexpression-des-préférences)  
+    1.2. [La fonction d'agrégation et ses propriétés](#12-la-fonction-daggrégation-et-ses-propriétés)
+2. [Spécificités du développement mobile](#2-spécificités-du-développement-mobile)  
+    2.1. [Quels sont les fonctionnalités mobiles employées](#21-quels-sont-les-fonctionnalités-mobiles-employées)  
+    2.2. [Comment gère-t-on la communication](#22-comment-gère-t-on-la-communication)  
+    2.3. [Comment gère-t-on la persistance des données](#23-comment-gère-t-on-la-persistence-des-données)  
+        2.3.1. [Quelles données devons nous enregistrer au niveau du serveur](#231-quelles-données-devons-nous-enregistrer-au-niveau-du-serveur)  
+        2.3.2. [Quelles données devons nous enregistrer au niveau du client](#232-quelles-données-devons-nous-enregistrer-au-niveau-du-client)  
+    2.4. [Où effectue-t-on les calculs](#24-où-effectue-t-on-les-calculs)  
+        2.4.1. [Côté client](#241-côté-client)  
+        2.4.2. [Côté serveur](#242-côté-serveur)  
+3. [Technologies utilisées](#3-technologies-utilisées)  
+    3.1. [Pour l’application mobile](#31-pour-lapplication-mobile)  
+    3.2. [Pour le serveur](#32-pour-le-serveur)  
+
+---
+
 ## 1. Informations liées à la théorie du choix social
 ### 1.1 L’expression des préférences
 L’utilisateur possède 100 points et les répartis entre les différentes propositions. Les points peuvent être placés dans le positif ou le négatif.
