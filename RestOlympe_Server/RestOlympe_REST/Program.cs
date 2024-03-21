@@ -42,6 +42,7 @@ namespace RestOlympe_REST
 
             app.UseAuthorization();
 
+            app.UseWebSockets();
 
             app.MapControllers();
 

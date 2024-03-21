@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  restolympe_rest:
+    image: ${DOCKER_REGISTRY-}restolymperest
+    build:
+      context: .
+      dockerfile: RestOlympe_REST/Dockerfile
