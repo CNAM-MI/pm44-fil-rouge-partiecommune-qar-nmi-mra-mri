@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using RestOlympe_REST.Data;
+using RestOlympe_Server.Data;
 using System.ComponentModel.DataAnnotations;
 
-namespace RestOlympe_REST.Controllers
+namespace RestOlympe_Server.Controllers
 {
     [ApiController]
     public class MessageController : ControllerBase

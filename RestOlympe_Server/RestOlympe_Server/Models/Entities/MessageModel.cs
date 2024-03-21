@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RestOlympe_REST.Models.Entities
+namespace RestOlympe_Server.Models.Entities
 {
     public class MessageModel
     {

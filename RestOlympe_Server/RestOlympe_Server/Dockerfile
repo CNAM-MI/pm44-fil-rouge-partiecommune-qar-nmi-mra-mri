@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["RestOlympe_REST/RestOlympe_REST.csproj", "RestOlympe_REST/"]
-RUN dotnet restore "./RestOlympe_REST/RestOlympe_REST.csproj"
+COPY ["RestOlympe_Server/RestOlympe_Server.csproj", "RestOlympe_Server/"]
+RUN dotnet restore "./RestOlympe_Server/RestOlympe_Server.csproj"
 COPY . .
-WORKDIR "/src/RestOlympe_REST"
-RUN dotnet build "./RestOlympe_REST.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/RestOlympe_Server"
+RUN dotnet build "./RestOlympe_Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./RestOlympe_REST.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./RestOlympe_Server.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "RestOlympe_REST.dll"]
+ENTRYPOINT ["dotnet", "RestOlympe_Server.dll"]

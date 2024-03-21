@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
-using RestOlympe_REST.Data;
+using RestOlympe_Server.Data;
 
-namespace RestOlympe_REST
+namespace RestOlympe_Server
 {
     public class Program
     {

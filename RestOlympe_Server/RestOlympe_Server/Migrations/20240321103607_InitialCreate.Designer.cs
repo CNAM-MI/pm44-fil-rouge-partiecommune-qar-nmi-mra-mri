@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using RestOlympe_REST.Data;
+using RestOlympe_Server.Data;
 
 #nullable disable
 
-namespace RestOlympe_REST.Migrations
+namespace RestOlympe_Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240321103607_InitialCreate")]
@@ -25,7 +25,7 @@ namespace RestOlympe_REST.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("RestOlympe_REST.Models.Entities.MessageModel", b =>
+            modelBuilder.Entity("RestOlympe_Server.Models.Entities.MessageModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

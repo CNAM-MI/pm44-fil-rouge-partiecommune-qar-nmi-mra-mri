@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace RestOlympe_REST.Migrations
+namespace RestOlympe_Server.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

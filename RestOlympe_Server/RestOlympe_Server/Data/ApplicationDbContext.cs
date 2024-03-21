@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestOlympe_REST.Models.Entities;
+using RestOlympe_Server.Models.Entities;
 
-namespace RestOlympe_REST.Data
+namespace RestOlympe_Server.Data
 {
     public class ApplicationDbContext : DbContext
     {
