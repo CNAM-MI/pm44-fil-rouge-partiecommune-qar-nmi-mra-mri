@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
 using RestOlympe_Server.Data;
+using RestOlympe_Server.Hubs;
 
 namespace RestOlympe_Server
 {
@@ -11,7 +12,7 @@ namespace RestOlympe_Server
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddSignalR();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -46,6 +47,7 @@ namespace RestOlympe_Server
 
             app.MapControllers();
 
+            app.MapHub<TestHub>("/testhub");
             app.Run();
         }
     }
