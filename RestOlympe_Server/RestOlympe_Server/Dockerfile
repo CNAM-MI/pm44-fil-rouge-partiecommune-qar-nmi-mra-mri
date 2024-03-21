@@ -22,4 +22,14 @@ RUN dotnet publish "./RestOlympe_Server.csproj" -c $BUILD_CONFIGURATION -o /app/
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+# Copy the self-signed certificate
+COPY ["../certificate.pfx", "/https/"]
+
+# Set environment variables to configure ASP.NET Core to use the certificate
+ENV ASPNETCORE_URLS=${ASPNETCORE_URLS}
+ENV ASPNETCORE_HTTPS_PORT=${ASPNETCORE_HTTPS_PORT}
+ENV ASPNETCORE_Kestrel__Certificates__Default__Password=${ASPNETCORE_Kestrel__Certificates__Default__Password}
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path=${ASPNETCORE_Kestrel__Certificates__Default__Path}
+
 ENTRYPOINT ["dotnet", "RestOlympe_Server.dll"]
