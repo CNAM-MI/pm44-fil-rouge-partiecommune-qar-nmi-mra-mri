@@ -7,7 +7,7 @@
     <ProjectGuid>37b77c39-9350-4960-bdbc-a72257172087</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>restolympe_rest</DockerServiceName>
+    <DockerServiceName>restolympe_server</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

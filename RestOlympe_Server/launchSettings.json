@@ -4,7 +4,7 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "restolympe_rest": "StartDebugging"
+        "restolympe_server": "StartDebugging"
       }
     }
   }
