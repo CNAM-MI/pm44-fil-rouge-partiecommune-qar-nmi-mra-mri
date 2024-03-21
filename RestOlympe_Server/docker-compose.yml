@@ -1,11 +1,11 @@
 version: '3.4'
 
 services:
-  restolympe_rest:
-    image: ${DOCKER_REGISTRY-}restolymperest
+  restolympe_server:
+    image: ${DOCKER_REGISTRY-}restolympeserver
     build:
       context: .
-      dockerfile: RestOlympe_REST/Dockerfile
+      dockerfile: RestOlympe_Server/Dockerfile
     networks:
       - restolympe-network
     depends_on:
