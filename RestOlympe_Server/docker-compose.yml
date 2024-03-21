@@ -6,3 +6,36 @@ services:
     build:
       context: .
       dockerfile: RestOlympe_REST/Dockerfile
+    networks:
+      - restolympe-network
+    depends_on:
+      restolympe-db:
+        condition: service_healthy
+
+  restolympe-db:
+    image: postgres:latest
+    container_name: restolympe-db
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    expose:
+      - 5432
+    ports:
+      - 5433:5432
+    networks:
+      - restolympe-network
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  restolympe-network:
+    driver: bridge
+
+volumes:
+  pg_data:
