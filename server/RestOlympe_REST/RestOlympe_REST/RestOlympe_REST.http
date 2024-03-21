@@ -1,6 +1,0 @@
-@RestOlympe_REST_HostAddress = http://localhost:5143
-
-GET {{RestOlympe_REST_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
