@@ -3,6 +3,8 @@ version: '3.4'
 services:
   restolympe_server:
     image: ${DOCKER_REGISTRY-}restolympeserver
+    env_file:
+     - .env   
     build:
       context: .
       dockerfile: RestOlympe_Server/Dockerfile
