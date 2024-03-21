@@ -1,3 +1,4 @@
 **/.vs/
 /server/RestOlympe_REST/RestOlympe_REST/obj/
+/server/RestOlympe_REST/RestOlympe_REST/bin/
 /server/RestOlympe_REST/RestOlympe_REST/appsettings.Development.json
