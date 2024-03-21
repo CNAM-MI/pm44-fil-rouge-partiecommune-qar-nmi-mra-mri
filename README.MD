@@ -79,6 +79,7 @@ https://github.com/CNAM-MI/pm44-fil-rouge-appindividuelle-Mathis-Richard
 - Kotlin natif pour Android: par Maëlis RAKOWSKI
 https://github.com/CNAM-MI/pm44-fil-rouge-appindividuelle-Maelis-Rakowski
 - React-Native: par Nellou MICHEL
+https://github.com/CNAM-MI/pm44-fil-rouge-appindividuelle-Nellou-Michel
 - Flutter: par Quentin ARZALIER
 https://github.com/CNAM-MI/pm44-fil-rouge-appindividuelle-quentin-arzalier
 ### 3.2 Pour le serveur
