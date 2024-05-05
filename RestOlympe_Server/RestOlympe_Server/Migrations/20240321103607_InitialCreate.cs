@@ -12,6 +12,7 @@ namespace RestOlympe_Server.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql(@"CREATE EXTENSION IF NOT EXISTS ""uuid-ossp"";");
             migrationBuilder.CreateTable(
                 name: "messages",
                 columns: table => new

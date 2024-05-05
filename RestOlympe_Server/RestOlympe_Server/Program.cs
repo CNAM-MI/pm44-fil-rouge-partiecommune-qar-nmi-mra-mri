@@ -23,7 +23,8 @@ namespace RestOlympe_Server
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(connectionString));
+                options.UseNpgsql(connectionString), ServiceLifetime.Scoped, ServiceLifetime.Scoped
+            );
 
             #endregion Database
 
@@ -48,6 +49,14 @@ namespace RestOlympe_Server
             app.MapControllers();
 
             app.MapHub<TestHub>("/testhub");
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+                db?.Database.Migrate();
+            }
+
             app.Run();
         }
     }
