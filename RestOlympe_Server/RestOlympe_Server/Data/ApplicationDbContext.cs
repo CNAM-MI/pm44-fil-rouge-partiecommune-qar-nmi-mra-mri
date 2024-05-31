@@ -23,8 +23,6 @@ namespace RestOlympe_Server.Data
 
 
 
-
-
             builder.Entity<LobbyModel>()
                 .HasMany(lobby => lobby.Users)
                 .WithMany(user => user.LobbiesAsUser)
@@ -34,11 +32,6 @@ namespace RestOlympe_Server.Data
                 .HasOne(l => l.Admin)
                 .WithMany(u => u.LobbiesAsAdmin)
                 .HasForeignKey(l => l.AdminId);
-
-
-            builder.Entity<UserModel>()
-                .HasIndex(u => u.UserName)
-                .IsUnique();
         }
 
         public DbSet<LobbyModel> Lobbies { get; set; }
