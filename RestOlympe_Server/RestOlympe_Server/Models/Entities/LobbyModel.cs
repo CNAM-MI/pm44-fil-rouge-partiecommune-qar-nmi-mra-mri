@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace RestOlympe_Server.Models.Entities
 {
@@ -16,8 +17,10 @@ namespace RestOlympe_Server.Models.Entities
 
         [Required]
         public Guid AdminId { get; set; }
+
         public UserModel Admin { get; set; }
 
+        [JsonIgnore]
         public List<UserModel> Users { get; set; }
     }
 }

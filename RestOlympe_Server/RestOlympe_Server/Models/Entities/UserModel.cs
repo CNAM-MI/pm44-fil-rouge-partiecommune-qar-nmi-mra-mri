@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace RestOlympe_Server.Models.Entities
 {
@@ -11,8 +12,10 @@ namespace RestOlympe_Server.Models.Entities
         [MaxLength(32)]
         public string UserName { get; set; }
 
+        [JsonIgnore]
         public List<LobbyModel> LobbiesAsAdmin { get; set; }
 
+        [JsonIgnore]
         public List<LobbyModel> LobbiesAsUser { get; set; }
 
     }

@@ -44,11 +44,9 @@ namespace RestOlympe_Server
 
             app.UseAuthorization();
 
-            app.UseWebSockets();
-
             app.MapControllers();
 
-            app.MapHub<TestHub>("/testhub");
+            app.MapHub<RestoHub>("/restohub");
 
             using (var scope = app.Services.CreateScope())
             {

@@ -31,8 +31,11 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{username}")]
-        public IActionResult GetUserByName(string username)
+        public IActionResult GetUserByName([Required] string username)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var user = _context.Users.SingleOrDefault(u => u.UserName == username);
 
             if (user == null)
@@ -51,16 +54,8 @@ namespace RestOlympe_Server.Controllers
         [Route("/[controller]")]
         public IActionResult AddUser([MaxLength(32)][Required] string username)
         {
-            if (username.Length > 255)
-                return BadRequest("Username was over 255 characters");
-
-            var potentialUser = _context.Users.SingleOrDefault(u => u.UserName == username);
-
-            if (potentialUser != null)
-            {
-                return new StatusCodeResult(409); // Conflict
-            }
-
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             _context.Users.Add(new()
             {
@@ -69,14 +64,16 @@ namespace RestOlympe_Server.Controllers
             });
             _context.SaveChanges();
 
-
             return Created();
         }
 
         [HttpDelete]
         [Route("/[controller]/{username}")]
-        public IActionResult DeleteUserByName(string username)
+        public IActionResult DeleteUserByName([Required] string username)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var user = _context.Users.SingleOrDefault(u => u.UserName == username);
 
             if (user == null)
