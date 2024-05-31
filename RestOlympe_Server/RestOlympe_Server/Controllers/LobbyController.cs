@@ -54,11 +54,18 @@ namespace RestOlympe_Server.Controllers
         public IActionResult AddLobby(
             [Required] Guid adminId,
             [Required][MaxLength(32)] string lobbyName,
-            float voteRadiusKilometers
+            double? longitude,
+            double? latitude,
+            float? voteRadiusKm
         )
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            if (!((longitude.HasValue && latitude.HasValue && voteRadiusKm.HasValue)
+                || (!longitude.HasValue && !latitude.HasValue && !voteRadiusKm.HasValue))
+            ) 
+                return BadRequest("The fields longitude, latitude and voteRadiusKm must either all be absent or all be present.");
 
             var admin = _context.Users
                 .Include(u => u.LobbiesAsUser)
@@ -71,7 +78,9 @@ namespace RestOlympe_Server.Controllers
             var newLobby = new LobbyModel()
             {
                 AdminId = adminId,
-                VoteRadiusKm = voteRadiusKilometers,
+                Longitude = longitude,
+                Latitude = latitude,
+                VoteRadiusKm = voteRadiusKm,
                 Admin = admin,
                 Name = lobbyName,
                 LobbyId = Guid.NewGuid(),

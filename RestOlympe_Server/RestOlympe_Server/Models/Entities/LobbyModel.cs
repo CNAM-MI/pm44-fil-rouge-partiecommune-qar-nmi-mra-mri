@@ -12,6 +12,8 @@ namespace RestOlympe_Server.Models.Entities
         [MaxLength(32)]
         public string Name { get; set; }
 
+        public double? Longitude { get; set; }
+        public double? Latitude { get; set; }
         public float? VoteRadiusKm { get; set; }
         
 
