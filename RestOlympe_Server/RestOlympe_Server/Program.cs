@@ -18,6 +18,15 @@ namespace RestOlympe_Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .SetIsOriginAllowed((host) => true)
+                           .AllowCredentials();
+                }));
+
             #region Database
 
             // Add services to the container.
@@ -46,7 +55,9 @@ namespace RestOlympe_Server
 
             app.MapControllers();
 
-            app.MapHub<RestoHub>("/restohub");
+            app.MapHub<RestoHub>("/restohub"); 
+            
+            app.UseCors("CorsPolicy");
 
             using (var scope = app.Services.CreateScope())
             {
