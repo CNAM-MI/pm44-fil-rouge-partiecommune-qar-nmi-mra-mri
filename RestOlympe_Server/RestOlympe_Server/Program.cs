@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
 using RestOlympe_Server.Data;
 using RestOlympe_Server.Hubs;
@@ -55,8 +54,8 @@ namespace RestOlympe_Server
 
             app.MapControllers();
 
-            app.MapHub<RestoHub>("/restohub"); 
-            
+            app.MapHub<RestoHub>("/restohub");
+
             app.UseCors("CorsPolicy");
 
             using (var scope = app.Services.CreateScope())

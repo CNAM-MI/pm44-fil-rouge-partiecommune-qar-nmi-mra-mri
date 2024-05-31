@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestOlympe_Server.Models.Entities;
-using System.Data;
 
 namespace RestOlympe_Server.Data
 {

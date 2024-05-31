@@ -5,8 +5,6 @@ using RestOlympe_Server.Data;
 using RestOlympe_Server.Hubs;
 using RestOlympe_Server.Models.Entities;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace RestOlympe_Server.Controllers
 {
@@ -64,7 +62,7 @@ namespace RestOlympe_Server.Controllers
 
             if (!((longitude.HasValue && latitude.HasValue && voteRadiusKm.HasValue)
                 || (!longitude.HasValue && !latitude.HasValue && !voteRadiusKm.HasValue))
-            ) 
+            )
                 return BadRequest("The fields longitude, latitude and voteRadiusKm must either all be absent or all be present.");
 
             var admin = _context.Users

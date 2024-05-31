@@ -7,7 +7,7 @@ namespace RestOlympe_Server.Models.Entities
     {
         [Key]
         public Guid UserId { get; set; }
-        
+
         [Required]
         [MaxLength(32)]
         public string UserName { get; set; }
