@@ -8,7 +8,7 @@
         public Guid UserId { get; set; }
         public UserModel User { get; set; }
 
-        public int OsmId { get; set; }
+        public long OsmId { get; set; }
 
         public int Value { get; set; }
     }

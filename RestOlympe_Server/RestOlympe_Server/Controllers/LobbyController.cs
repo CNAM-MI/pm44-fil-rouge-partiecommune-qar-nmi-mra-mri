@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using RestOlympe_Server.Services;
 using RestOlympe_Server.Data;
 using RestOlympe_Server.Hubs;
-using RestOlympe_Server.Models.Entities;
-using System.ComponentModel.DataAnnotations;
 using RestOlympe_Server.Models.DTO;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
+using RestOlympe_Server.Models.Entities;
+using RestOlympe_Server.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace RestOlympe_Server.Controllers
 {
@@ -173,7 +172,7 @@ namespace RestOlympe_Server.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var lobby = _context.Lobbies.Include(l => l.Users).SingleOrDefault(l => l.LobbyId == lobbyId);
+            var lobby = _context.Lobbies.Include(l => l.Votes).SingleOrDefault(l => l.LobbyId == lobbyId);
 
             if (lobby == null)
                 return NotFound("The specified lobby does not exist.");
@@ -189,7 +188,7 @@ namespace RestOlympe_Server.Controllers
         public async Task<IActionResult> Vote(
              [Required] Guid lobbyId,
              [Required] Guid userId,
-             [Required] int osmId,
+             [Required] long osmId,
              [Required] int voteValue
         )
         {
@@ -363,7 +362,7 @@ namespace RestOlympe_Server.Controllers
         public IActionResult GetLobbyUserVote(
             [Required] Guid lobbyId,
             [Required] Guid userId,
-            [Required] int osmId
+            [Required] long osmId
         )
         {
             if (!ModelState.IsValid)
@@ -393,7 +392,7 @@ namespace RestOlympe_Server.Controllers
         public IActionResult ChangeLobbyUserVote(
             [Required] Guid lobbyId,
             [Required] Guid userId,
-            [Required] int osmId,
+            [Required] long osmId,
             [Required] int newValue
         )
         {
@@ -430,7 +429,7 @@ namespace RestOlympe_Server.Controllers
         public IActionResult DeleteLobbyUserVote(
             [Required] Guid lobbyId,
             [Required] Guid userId,
-            [Required] int osmId
+            [Required] long osmId
         )
         {
             if (!ModelState.IsValid)
@@ -508,14 +507,11 @@ namespace RestOlympe_Server.Controllers
             if (lobby == null)
                 return NotFound("The specified lobby does not exist.");
 
-            if (!lobby.IsClosed)
-                return BadRequest("The lobby is not closed yet.");
-
             RestaurantListDTO? result;
 
             if (lobby.VoteRadiusKm.HasValue && lobby.Longitude.HasValue && lobby.Latitude.HasValue)
                 result = await _osmApi.GetListAroundLocationAsync(new GeoPoint(lobby.Longitude.Value, lobby.Latitude.Value), lobby.VoteRadiusKm.Value, page);
-            else 
+            else
                 result = await _osmApi.GetListAroundLocationAsync(null, null, page);
 
             return new JsonResult(result);

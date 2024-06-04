@@ -1,10 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RestOlympe_Server.Data;
 using RestOlympe_Server.Hubs;
-using RestOlympe_Server.Models.DTO;
 using RestOlympe_Server.Services;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace RestOlympe_Server
 {
