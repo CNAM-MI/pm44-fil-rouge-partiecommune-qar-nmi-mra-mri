@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RestOlympe_Server.Data;
 using RestOlympe_Server.Models.Entities;
 using System.ComponentModel.DataAnnotations;
@@ -44,10 +45,7 @@ namespace RestOlympe_Server.Controllers
                 return NotFound();
             }
 
-            return new JsonResult(new
-            {
-                user
-            });
+            return new JsonResult(user);
         }
 
 
@@ -88,6 +86,26 @@ namespace RestOlympe_Server.Controllers
             _context.SaveChanges();
 
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route("/[controller]/{userId}/lobby")]
+        public IActionResult GetLobbies([Required] Guid userId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = _context.Users.Include(u => u.LobbiesAsUser).SingleOrDefault(u => u.UserId == userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return new JsonResult(new
+            {
+                lobbies = user.LobbiesAsUser
+            });
         }
     }
 }

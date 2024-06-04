@@ -14,7 +14,7 @@ namespace RestOlympe_Server.Models.Entities
 
         public double? Longitude { get; set; }
         public double? Latitude { get; set; }
-        public float? VoteRadiusKm { get; set; }
+        public uint? VoteRadiusKm { get; set; }
 
         public bool IsClosed { get; set; }
 

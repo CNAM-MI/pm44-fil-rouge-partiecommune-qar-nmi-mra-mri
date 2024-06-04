@@ -4,5 +4,6 @@
     public record GeoPoint(double lon, double lat);
     public record OpenRestaurantDTO(string name, string type, string meta_osm_id, GeoPoint meta_geo_point);
     public record RestaurantListDTO(int total_count, List<OpenRestaurantDTO> results);
+    public record OpenRestaurantInResultDTO(int VoteCount, OpenRestaurantDTO Restaurant) : OpenRestaurantDTO(Restaurant);
 #pragma warning restore IDE1006 // Styles d'affectation de noms
 }
