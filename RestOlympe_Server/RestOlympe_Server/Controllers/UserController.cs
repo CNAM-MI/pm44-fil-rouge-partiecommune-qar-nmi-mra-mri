@@ -51,7 +51,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpPost]
         [Route("/[controller]")]
-        public IActionResult AddUser([MaxLength(32)][Required] string username)
+        public IActionResult AddUser([MaxLength(32)][Required][FromForm] string username)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

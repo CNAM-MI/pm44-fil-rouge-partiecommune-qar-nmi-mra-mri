@@ -46,11 +46,11 @@ namespace RestOlympe_Server.Controllers
         [HttpPost]
         [Route("/[controller]")]
         public IActionResult AddLobby(
-            [Required] Guid adminId,
-            [Required][MaxLength(32)] string lobbyName,
-            double? longitude,
-            double? latitude,
-            uint? voteRadiusKm
+            [FromForm] [Required] Guid adminId,
+            [FromForm] [Required] [MaxLength(32)] string lobbyName,
+            [FromForm] double? longitude,
+            [FromForm] double? latitude,
+            [FromForm] uint? voteRadiusKm
         )
         {
             if (!ModelState.IsValid)
@@ -110,7 +110,7 @@ namespace RestOlympe_Server.Controllers
         [Route("/[controller]/{lobbyId}")]
         public IActionResult DeleteLobby(
             [Required] Guid lobbyId,
-            [Required] Guid adminId
+            [FromForm] [Required] Guid adminId
         )
         {
             if (!ModelState.IsValid)
@@ -134,7 +134,7 @@ namespace RestOlympe_Server.Controllers
         [Route("/[controller]/{lobbyId}/join")]
         public IActionResult JoinLobby(
             [Required] Guid lobbyId,
-            [Required] Guid userId
+            [FromForm] [Required] Guid userId
         )
         {
             if (!ModelState.IsValid)
@@ -187,9 +187,9 @@ namespace RestOlympe_Server.Controllers
         [Route("/[controller]/{lobbyId}/vote")]
         public async Task<IActionResult> Vote(
              [Required] Guid lobbyId,
-             [Required] Guid userId,
-             [Required] long osmId,
-             [Required] int voteValue
+             [FromForm] [Required] Guid userId,
+             [FromForm] [Required] long osmId,
+             [FromForm] [Required] int voteValue
         )
         {
             if (!ModelState.IsValid)
@@ -236,11 +236,11 @@ namespace RestOlympe_Server.Controllers
         }
 
 
-        [HttpPatch]
+        [HttpPost]
         [Route("/[controller]/{lobbyId}/close")]
         public IActionResult CloseLobby(
             [Required] Guid lobbyId,
-            [Required] Guid adminId
+            [FromForm] [Required] Guid adminId
         )
         {
             if (!ModelState.IsValid)
@@ -393,7 +393,7 @@ namespace RestOlympe_Server.Controllers
             [Required] Guid lobbyId,
             [Required] Guid userId,
             [Required] long osmId,
-            [Required] int newValue
+            [FromForm] [Required] int newValue
         )
         {
             if (!ModelState.IsValid)
