@@ -33,6 +33,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]")]
+        [ProducesResponseType(200)]
         public IActionResult GetAllLobbies()
         {
             var lobbies = _context.Lobbies.Include(l => l.Admin).ToArray();
@@ -45,6 +46,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpPost]
         [Route("/[controller]")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult AddLobby(
             [FromForm] [Required] Guid adminId,
             [FromForm] [Required] [MaxLength(32)] string lobbyName,
@@ -90,6 +94,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult GetLobby([Required] Guid lobbyId)
         {
             if (!ModelState.IsValid)
@@ -108,6 +115,10 @@ namespace RestOlympe_Server.Controllers
 
         [HttpDelete]
         [Route("/[controller]/{lobbyId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(404)]
         public IActionResult DeleteLobby(
             [Required] Guid lobbyId,
             [FromForm] [Required] Guid adminId
@@ -132,6 +143,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpPost]
         [Route("/[controller]/{lobbyId}/join")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult JoinLobby(
             [Required] Guid lobbyId,
             [FromForm] [Required] Guid userId
@@ -167,6 +181,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/vote")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult GetLobbyVotes([Required] Guid lobbyId)
         {
             if (!ModelState.IsValid)
@@ -185,6 +202,10 @@ namespace RestOlympe_Server.Controllers
 
         [HttpPost]
         [Route("/[controller]/{lobbyId}/vote")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> Vote(
              [Required] Guid lobbyId,
              [FromForm] [Required] Guid userId,
@@ -238,6 +259,10 @@ namespace RestOlympe_Server.Controllers
 
         [HttpPost]
         [Route("/[controller]/{lobbyId}/close")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(404)]
         public IActionResult CloseLobby(
             [Required] Guid lobbyId,
             [FromForm] [Required] Guid adminId
@@ -264,6 +289,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/user")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult GetLobbyUsers([Required] Guid lobbyId)
         {
             if (!ModelState.IsValid)
@@ -282,6 +310,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/user/{userId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult GetLobbyUsers(
             [Required] Guid lobbyId,
             [Required] Guid userId
@@ -305,6 +336,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpDelete]
         [Route("/[controller]/{lobbyId}/user/{userId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult LeaveLobby(
             [Required] Guid lobbyId,
             [Required] Guid userId
@@ -331,6 +365,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/user/{userId}/vote")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult GetLobbyUserVotes(
             [Required] Guid lobbyId,
             [Required] Guid userId
@@ -359,6 +396,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/user/{userId}/vote/{osmId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult GetLobbyUserVote(
             [Required] Guid lobbyId,
             [Required] Guid userId,
@@ -389,6 +429,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpPatch]
         [Route("/[controller]/{lobbyId}/user/{userId}/vote/{osmId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult ChangeLobbyUserVote(
             [Required] Guid lobbyId,
             [Required] Guid userId,
@@ -426,6 +469,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpDelete]
         [Route("/[controller]/{lobbyId}/user/{userId}/vote/{osmId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult DeleteLobbyUserVote(
             [Required] Guid lobbyId,
             [Required] Guid userId,
@@ -459,6 +505,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/result")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetLobbyResult(
             [Required] Guid lobbyId
         )
@@ -494,6 +543,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/restaurant")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetRestaurants(
             [Required] Guid lobbyId,
             uint page = 0

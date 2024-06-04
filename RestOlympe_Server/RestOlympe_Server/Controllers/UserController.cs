@@ -21,6 +21,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]")]
+        [ProducesResponseType(200)]
         public IActionResult GetAllUsers()
         {
             var users = _context.Users.ToArray();
@@ -33,6 +34,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{userId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult GetUser([Required] Guid userId)
         {
             if (!ModelState.IsValid)
@@ -51,6 +55,8 @@ namespace RestOlympe_Server.Controllers
 
         [HttpPost]
         [Route("/[controller]")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
         public IActionResult AddUser([MaxLength(32)][Required][FromForm] string username)
         {
             if (!ModelState.IsValid)
@@ -70,6 +76,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpDelete]
         [Route("/[controller]/{userId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult DeleteUser([Required] Guid userId)
         {
             if (!ModelState.IsValid)
@@ -90,6 +99,9 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{userId}/lobby")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult GetLobbies([Required] Guid userId)
         {
             if (!ModelState.IsValid)
