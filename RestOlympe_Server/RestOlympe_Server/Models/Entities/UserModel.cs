@@ -18,5 +18,8 @@ namespace RestOlympe_Server.Models.Entities
         [JsonIgnore]
         public List<LobbyModel> LobbiesAsUser { get; set; }
 
+        [JsonIgnore]
+        public List<VoteModel> Votes { get; set; }
+
     }
 }

@@ -16,6 +16,8 @@ namespace RestOlympe_Server.Models.Entities
         public double? Latitude { get; set; }
         public float? VoteRadiusKm { get; set; }
 
+        public bool IsClosed { get; set; }
+
 
         [Required]
         public Guid AdminId { get; set; }
@@ -24,5 +26,8 @@ namespace RestOlympe_Server.Models.Entities
 
         [JsonIgnore]
         public List<UserModel> Users { get; set; }
+
+        [JsonIgnore]
+        public List<VoteModel> Votes { get; set; }
     }
 }

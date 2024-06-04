@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using RestOlympe_Server.Services;
 using RestOlympe_Server.Data;
 using RestOlympe_Server.Hubs;
 using RestOlympe_Server.Models.Entities;
@@ -15,24 +16,18 @@ namespace RestOlympe_Server.Controllers
         private readonly ILogger<LobbyController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly IHubContext<RestoHub> _hub;
+        private readonly OsmApiService _osmApi;
 
         public LobbyController(
             ILogger<LobbyController> logger,
             ApplicationDbContext context,
-            IHubContext<RestoHub> hub)
+            IHubContext<RestoHub> hub,
+            OsmApiService osmApi)
         {
             _logger = logger;
             _context = context;
             _hub = hub;
-        }
-
-        [HttpGet]
-        [Route("/[controller]/[action]")]
-        public IActionResult ToDeleteSendMessageToClients(string message)
-        {
-            _hub.Clients.All.SendAsync("ReceiveMessage", message);
-
-            return NoContent();
+            _osmApi = osmApi;
         }
 
         [HttpGet]
@@ -81,6 +76,7 @@ namespace RestOlympe_Server.Controllers
                 VoteRadiusKm = voteRadiusKm,
                 Admin = admin,
                 Name = lobbyName,
+                IsClosed = false,
                 LobbyId = Guid.NewGuid(),
                 Users = [admin]
             };
@@ -137,6 +133,70 @@ namespace RestOlympe_Server.Controllers
 
             lobby.Users.Add(user);
             _context.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpPost]
+        [Route("/[controller]/{lobbyId}/vote")]
+        public async Task<IActionResult> Vote(
+            Guid lobbyId,
+            Guid userId,
+            int osmId,
+            int voteValue
+        )
+        {
+            var lobby = _context.Lobbies.Include(l => l.Users).SingleOrDefault(l => l.LobbyId == lobbyId);
+
+            if (lobby == null)
+                return NotFound("The specified lobby does not exist.");
+
+            var user = _context.Users.Include(u => u.Votes).SingleOrDefault(u => u.UserId == userId);
+
+            if (user == null)
+                return NotFound("The specified user does not exist.");
+
+            if (!lobby.Users.Any(u => u.UserId == user.UserId))
+                return Forbid();
+
+            if (user.Votes.Where(v => v.LobbyId == lobbyId).Sum(v => Math.Abs(v.Value)) + Math.Abs(voteValue) > 100)
+                return BadRequest("User cannot user more than 100 points per lobby.");
+
+            var restaurant = await _osmApi.GetAsync(osmId.ToString());
+
+            if (restaurant == null)
+                return NotFound("The specified restaurant does not exist.");
+
+            var newVote = new VoteModel()
+            {
+                User = user,
+                UserId = user.UserId,
+                Lobby = lobby,
+                LobbyId = lobby.LobbyId,
+                Value = voteValue,
+                OsmId = osmId
+            };
+
+            _context.Votes.Add(newVote);
+            _context.SaveChanges();
+
+            return Created($"/lobby/{lobby.LobbyId}/user/{user.UserId}/vote/{newVote.OsmId}", newVote);
+        }
+
+
+        [HttpPatch]
+        [Route("/[controller]/{lobbyId}/close")]
+        public IActionResult CloseLobby(Guid lobbyId)
+        {
+            var lobby = _context.Lobbies.SingleOrDefault(l => l.LobbyId == lobbyId);
+
+            if (lobby == null)
+                return NotFound("The specified lobby does not exist.");
+
+            lobby.IsClosed = true;
+            _context.SaveChanges();
+
+            _hub.Clients.All.SendAsync("LobbyClosed", lobbyId);
 
             return NoContent();
         }

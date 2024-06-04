@@ -20,6 +20,10 @@ namespace RestOlympe_Server.Data
             builder.Entity<UserModel>()
                 .ToTable("users");
 
+            builder.Entity<VoteModel>()
+                .ToTable("votes")
+                .HasKey(v => new { v.LobbyId, v.UserId, v.OsmId });
+
 
 
             builder.Entity<LobbyModel>()
@@ -31,10 +35,21 @@ namespace RestOlympe_Server.Data
                 .HasOne(l => l.Admin)
                 .WithMany(u => u.LobbiesAsAdmin)
                 .HasForeignKey(l => l.AdminId);
+
+            builder.Entity<VoteModel>()
+                .HasOne(v => v.Lobby)
+                .WithMany(l => l.Votes)
+                .HasForeignKey(v => v.LobbyId);
+
+            builder.Entity<VoteModel>()
+                .HasOne(v => v.User)
+                .WithMany(u => u.Votes)
+                .HasForeignKey(v => v.UserId);
         }
 
         public DbSet<LobbyModel> Lobbies { get; set; }
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<VoteModel> Votes { get; set; }
 
     }
 }

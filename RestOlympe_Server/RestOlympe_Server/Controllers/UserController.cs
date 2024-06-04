@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RestOlympe_Server.Data;
+using RestOlympe_Server.Models.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace RestOlympe_Server.Controllers
@@ -30,13 +31,13 @@ namespace RestOlympe_Server.Controllers
         }
 
         [HttpGet]
-        [Route("/[controller]/{username}")]
-        public IActionResult GetUserByName([Required] string username)
+        [Route("/[controller]/{userId}")]
+        public IActionResult GetUser([Required] Guid userId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var user = _context.Users.SingleOrDefault(u => u.UserName == username);
+            var user = _context.Users.SingleOrDefault(u => u.UserId == userId);
 
             if (user == null)
             {
@@ -57,24 +58,26 @@ namespace RestOlympe_Server.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            _context.Users.Add(new()
+            var newUser = new UserModel()
             {
                 UserId = Guid.NewGuid(),
                 UserName = username,
-            });
+            };
+
+            _context.Users.Add(newUser);
             _context.SaveChanges();
 
-            return Created();
+            return Created($"/user/{newUser.UserId}", newUser);
         }
 
         [HttpDelete]
-        [Route("/[controller]/{username}")]
-        public IActionResult DeleteUserByName([Required] string username)
+        [Route("/[controller]/{userId}")]
+        public IActionResult DeleteUser([Required] Guid userId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var user = _context.Users.SingleOrDefault(u => u.UserName == username);
+            var user = _context.Users.SingleOrDefault(u => u.UserId == userId);
 
             if (user == null)
             {

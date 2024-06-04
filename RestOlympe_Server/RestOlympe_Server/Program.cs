@@ -1,6 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using RestOlympe_Server.Data;
 using RestOlympe_Server.Hubs;
+using RestOlympe_Server.Models.DTO;
+using RestOlympe_Server.Services;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace RestOlympe_Server
 {
@@ -13,6 +17,7 @@ namespace RestOlympe_Server
             // Add services to the container.
             builder.Services.AddSignalR();
             builder.Services.AddControllers();
+            builder.Services.AddScoped<OsmApiService>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -35,9 +40,6 @@ namespace RestOlympe_Server
             );
 
             #endregion Database
-
-
-
 
             var app = builder.Build();
 
