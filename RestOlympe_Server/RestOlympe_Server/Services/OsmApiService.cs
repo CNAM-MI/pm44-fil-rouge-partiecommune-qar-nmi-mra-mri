@@ -30,7 +30,7 @@ namespace RestOlympe_Server.Services
         private static string GetUrlParamsForList(GeoPoint? center, uint? kmRadius, uint page)
         {
             if (kmRadius.HasValue && center != null)
-                return BASE_SELECTION + $"&where=within_distance(meta_geo_point%2C%20geom%27POINT({center.lon}%20{center.lat})%27%2C%20{kmRadius}km)&order_by=distance(meta_geo_point%2C%20GEOM%27POINT({center.lon}%20{center.lat})%27)&limit={PAGE_SIZE}&offset={PAGE_SIZE * page}";
+                return BASE_SELECTION + $"&where=within_distance(meta_geo_point%2C%20geom%27POINT({center.lon}%20{center.lat})%27%2C%20{kmRadius}km)%20and%20name%20is%20not%20null&order_by=distance(meta_geo_point%2C%20GEOM%27POINT({center.lon}%20{center.lat})%27)&limit={PAGE_SIZE}&offset={PAGE_SIZE * page}";
             else if (center == null && !kmRadius.HasValue)
                 return BASE_SELECTION + $"&limit={PAGE_SIZE}&offset={PAGE_SIZE * page}";
             else
