@@ -176,6 +176,8 @@ namespace RestOlympe_Server.Controllers
             lobby.Users.Add(user);
             _context.SaveChanges();
 
+            _hub.Clients.All.SendAsync("NewLobbyMember", user.UserId);
+
             return NoContent();
         }
 
