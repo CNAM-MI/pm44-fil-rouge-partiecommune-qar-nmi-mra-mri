@@ -206,6 +206,7 @@ namespace RestOlympe_Server.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
         [ProducesResponseType(404)]
+        [ProducesResponseType(409)]
         public async Task<IActionResult> Vote(
              [Required] Guid lobbyId,
              [FromForm] [Required] Guid userId,
@@ -231,6 +232,9 @@ namespace RestOlympe_Server.Controllers
 
             if (!lobby.Users.Any(u => u.UserId == user.UserId))
                 return Forbid();
+
+            if (user.Votes.Any(v => v.LobbyId == lobbyId && v.OsmId == osmId))
+                return Conflict();
 
             if (user.Votes.Where(v => v.LobbyId == lobbyId).Sum(v => Math.Abs(v.Value)) + Math.Abs(voteValue) > 100)
                 return BadRequest("User cannot user more than 100 points per lobby.");

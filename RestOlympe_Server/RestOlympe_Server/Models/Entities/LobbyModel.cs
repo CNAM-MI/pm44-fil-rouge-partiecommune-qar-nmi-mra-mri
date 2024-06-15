@@ -22,6 +22,7 @@ namespace RestOlympe_Server.Models.Entities
         [Required]
         public Guid AdminId { get; set; }
 
+        [JsonIgnore]
         public UserModel Admin { get; set; }
 
         [JsonIgnore]
