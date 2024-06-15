@@ -433,7 +433,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpPatch]
         [Route("/[controller]/{lobbyId}/user/{userId}/vote/{osmId}")]
-        [ProducesResponseType(204)]
+        [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public IActionResult ChangeLobbyUserVote(
@@ -468,7 +468,7 @@ namespace RestOlympe_Server.Controllers
             vote.Value = newValue;
             _context.SaveChanges();
 
-            return NoContent();
+            return new JsonResult(vote);
         }
 
         [HttpDelete]
