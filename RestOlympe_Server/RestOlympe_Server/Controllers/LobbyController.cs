@@ -259,6 +259,8 @@ namespace RestOlympe_Server.Controllers
             _context.Votes.Add(newVote);
             _context.SaveChanges();
 
+            await _hub.Clients.All.SendAsync("VotesChanged", lobby.LobbyId);
+
             return Created($"/lobby/{lobby.LobbyId}/user/{user.UserId}/vote/{newVote.OsmId}", newVote);
         }
 
@@ -470,6 +472,8 @@ namespace RestOlympe_Server.Controllers
             vote.Value = newValue;
             _context.SaveChanges();
 
+            _hub.Clients.All.SendAsync("VotesChanged", lobby.LobbyId);
+
             return new JsonResult(vote);
         }
 
@@ -505,6 +509,8 @@ namespace RestOlympe_Server.Controllers
 
             user.Votes.Remove(vote);
             _context.SaveChanges();
+
+            _hub.Clients.All.SendAsync("VotesChanged", lobby.LobbyId);
 
             return NoContent();
         }
