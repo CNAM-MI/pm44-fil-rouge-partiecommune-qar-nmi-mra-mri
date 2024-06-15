@@ -33,7 +33,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, StatusCode = 200, Type = typeof(LobbyModel[]))]
         public IActionResult GetAllLobbies()
         {
             var lobbies = _context.Lobbies.Include(l => l.Admin).ToArray();
@@ -46,7 +46,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpPost]
         [Route("/[controller]")]
-        [ProducesResponseType(201)]
+        [ProducesResponseType(201, StatusCode = 201, Type = typeof(LobbyModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public IActionResult AddLobby(
@@ -94,7 +94,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, StatusCode = 200, Type = typeof(LobbyModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public IActionResult GetLobby([Required] Guid lobbyId)
@@ -181,7 +181,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/vote")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, StatusCode = 200, Type = typeof(VoteModel[]))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public IActionResult GetLobbyVotes([Required] Guid lobbyId)
@@ -202,7 +202,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpPost]
         [Route("/[controller]/{lobbyId}/vote")]
-        [ProducesResponseType(201)]
+        [ProducesResponseType(201, StatusCode = 201, Type = typeof(VoteModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(403)]
         [ProducesResponseType(404)]
@@ -293,7 +293,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/user")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, StatusCode = 201, Type = typeof(UserModel[]))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public IActionResult GetLobbyUsers([Required] Guid lobbyId)
@@ -314,10 +314,10 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/user/{userId}")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, StatusCode = 200, Type = typeof(UserModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public IActionResult GetLobbyUsers(
+        public IActionResult GetLobbyUser(
             [Required] Guid lobbyId,
             [Required] Guid userId
         )
@@ -369,7 +369,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/user/{userId}/vote")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, StatusCode = 200, Type = typeof(VoteModel[]))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public IActionResult GetLobbyUserVotes(
@@ -400,7 +400,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/user/{userId}/vote/{osmId}")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, StatusCode = 200, Type = typeof(VoteModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public IActionResult GetLobbyUserVote(
@@ -433,7 +433,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpPatch]
         [Route("/[controller]/{lobbyId}/user/{userId}/vote/{osmId}")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, StatusCode = 200, Type = typeof(VoteModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public IActionResult ChangeLobbyUserVote(
@@ -509,7 +509,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/result")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, StatusCode = 200, Type = typeof(OpenRestaurantInResultDTO[]))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> GetLobbyResult(
@@ -547,7 +547,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{lobbyId}/restaurant")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, StatusCode = 200, Type = typeof(RestaurantListDTO))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> GetRestaurants(

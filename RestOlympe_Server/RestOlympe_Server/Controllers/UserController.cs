@@ -21,7 +21,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, StatusCode = 200, Type = typeof(UserModel[]))]
         public IActionResult GetAllUsers()
         {
             var users = _context.Users.ToArray();
@@ -34,7 +34,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{userId}")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, StatusCode = 200, Type = typeof(UserModel))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public IActionResult GetUser([Required] Guid userId)
@@ -55,7 +55,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpPost]
         [Route("/[controller]")]
-        [ProducesResponseType(201)]
+        [ProducesResponseType(201, StatusCode = 200, Type = typeof(UserModel))]
         [ProducesResponseType(400)]
         public IActionResult AddUser([MaxLength(32)][Required][FromForm] string username)
         {
@@ -99,7 +99,7 @@ namespace RestOlympe_Server.Controllers
 
         [HttpGet]
         [Route("/[controller]/{userId}/lobby")]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, StatusCode = 200, Type = typeof(LobbyModel[]))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public IActionResult GetLobbies([Required] Guid userId)
